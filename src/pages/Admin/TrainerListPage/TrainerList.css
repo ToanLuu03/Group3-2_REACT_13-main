@@ -1,0 +1,32 @@
+.trainerList {
+    color: blue;
+    pointer-events: fill;
+}
+
+.Header-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+
+
+@media (max-width: 768px) {
+    .Header-list {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}
+
+.button {
+    width: 85%;
+    height: 32px;
+    justify-content: right;
+}
+
+.custom-table .ant-table-cell {
+    padding: 13px !important;
+}
+
