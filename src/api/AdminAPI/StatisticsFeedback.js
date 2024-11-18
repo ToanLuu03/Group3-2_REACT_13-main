@@ -1,19 +1,18 @@
-import axios from "axios";
+import { instance } from '../instance'
 
 export const get_Module_data = async () => {
   const token = localStorage.getItem("token");
   try {
-    const response = await axios.get(
-      `http://fams-app.ap-southeast-2.elasticbeanstalk.com/api/v1/modules/feedbacks/module-data`,
+    const response = await instance.get(
+      `v1/modules/feedbacks/module-data`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
     );
-    return response.data;
+    return response;
   } catch (error) {
-    console.error("Error fetching :", error);
     throw new Error("Failed to fetch feedback Data");
   }
 };
@@ -21,17 +20,16 @@ export const get_Module_data = async () => {
 export const get_Trainer_data = async () => {
   const token = localStorage.getItem("token");
   try {
-    const response = await axios.get(
-      `http://fams-app.ap-southeast-2.elasticbeanstalk.com/api/v1/modules/feedbacks/trainer-data`,
+    const response = await instance.get(
+      `v1/modules/feedbacks/trainer-data`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
     );
-    return response.data;
+    return response;
   } catch (error) {
-    console.error("Error fetching :", error);
     throw new Error("Failed to fetch feedback Data");
   }
 };
@@ -39,8 +37,8 @@ export const get_Trainer_data = async () => {
 export const Get_Evaluate_by_Module = async ({ module, trainerAccount }) => {
   try {
     const token = localStorage.getItem("token");
-    const response = await axios.get(
-      'http://fams-app.ap-southeast-2.elasticbeanstalk.com/api/v1/modules/feedbacks/statistic/evaluate-by-module',
+    const response = await instance.get(
+      'v1/modules/feedbacks/statistic/evaluate-by-module',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -61,17 +59,16 @@ export const Get_Evaluate_by_Module = async ({ module, trainerAccount }) => {
         },
       }
     );
-    return response.data;
+    return response;
   } catch (error) {
-    // console.error("Error fetching evaluation by module:", error.response || error.message);
     throw error;
   }
 };
 export const Get_Evaluate_by_Trainer = async ({ classCode, trainerAccount }) => {
   try {
     const token = localStorage.getItem("token");
-    const response = await axios.get(
-      'http://fams-app.ap-southeast-2.elasticbeanstalk.com/api/v1/modules/feedbacks/statistic/module-by-trainer',
+    const response = await instance.get(
+      'v1/modules/feedbacks/statistic/module-by-trainer',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -92,9 +89,8 @@ export const Get_Evaluate_by_Trainer = async ({ classCode, trainerAccount }) => 
         },
       }
     );
-    return response.data;
+    return response;
   } catch (error) {
-    console.error("Error fetching evaluation by module:", error.response || error.message);
     return { success: false, message: error.message };
   }
 };
@@ -102,15 +98,15 @@ export const Get_Evaluate_by_Trainer = async ({ classCode, trainerAccount }) => 
 export const get_Technical_data = async () => {
   const token = localStorage.getItem("token");
   try {
-    const response = await axios.get(
-      `http://fams-app.ap-southeast-2.elasticbeanstalk.com/api/v1/modules/feedbacks/technical-names`,
+    const response = await instance.get(
+      `v1/modules/feedbacks/technical-names`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
     );
-    return response.data;
+    return response;
   } catch (error) {
     console.error("Error fetching :", error);
     throw new Error("Failed to fetch feedback Data");
@@ -120,16 +116,15 @@ export const get_Technical_data = async () => {
 export const get_ClassAdmin_by_Trainer = async () => {
   try {
     const token = localStorage.getItem("token");
-    const response = await axios.get('http://fams-app.ap-southeast-2.elasticbeanstalk.com/api/v1/modules/feedbacks/class-admin',
+    const response = await instance.get('v1/modules/feedbacks/class-admin',
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
     ); // Replace with actual endpoint
-    return response.data;
+    return response;
   } catch (error) {
-    console.error("Error fetching class admin by trainer data:", error);
     throw error;
   }
 };
@@ -140,8 +135,8 @@ export const Get_Course_by_Module = async ({ classCode }) => {
     const validClassCode = Array.isArray(classCode) ? classCode : [classCode];
     const token = localStorage.getItem("token");
 
-    const response = await axios.get(
-      'http://fams-app.ap-southeast-2.elasticbeanstalk.com/api/v1/modules/feedbacks/statistic/by-technical-group',
+    const response = await instance.get(
+      'v1/modules/feedbacks/statistic/by-technical-group',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -161,9 +156,8 @@ export const Get_Course_by_Module = async ({ classCode }) => {
         },
       }
     );
-    return response.data;
+    return response;
   } catch (error) {
-    // console.error("Error fetching evaluation by module:", error.response || error.message);
     throw error;
   }
 };
@@ -171,8 +165,8 @@ export const Get_Course_by_Module = async ({ classCode }) => {
 export const getByModule = async ({ modules }) => {
   try {
     const token = localStorage.getItem("token");
-    const response = await axios.get(
-      'http://fams-app.ap-southeast-2.elasticbeanstalk.com/api/v1/modules/feedbacks/statistic/by-module',
+    const response = await instance.get(
+      'v1/modules/feedbacks/statistic/by-module',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -185,9 +179,8 @@ export const getByModule = async ({ modules }) => {
         },
       }
     );
-    return response.data;
+    return response;
   } catch (error) {
-    console.error("Error fetching evaluation by module:", error.response || error.message);
     return { success: false, message: error.message };
   }
 };
@@ -196,8 +189,8 @@ export const getStatisticsByModuleName = async (moduleName) => {
   try {
     const token = localStorage.getItem("token");
     const module = encodeURIComponent(moduleName)
-    const response = await axios.get(
-      `http://fams-app.ap-southeast-2.elasticbeanstalk.com/api/v1/modules/feedbacks/statistic/by-module-name?module=${module}`,
+    const response = await instance.get(
+      `v1/modules/feedbacks/statistic/by-module-name?module=${module}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -205,18 +198,18 @@ export const getStatisticsByModuleName = async (moduleName) => {
       }
 
     );
-    return response.data;
+    return response;
 
   } catch (error) {
-    console.error("Error fetching data by module name:", error);
     return { success: false, message: "Failed to fetch data by module name." };
   }
 };
+
 export const Get_Admin_by_ClassName = async ({ classAdmin, classNames }) => {
   try {
     const token = localStorage.getItem("token");
-    const response = await axios.get(
-      'http://fams-app.ap-southeast-2.elasticbeanstalk.com/api/v1/modules/feedbacks/statistic/class-admin/by-class-names',
+    const response = await instance.get(
+      'v1/modules/feedbacks/statistic/class-admin/by-class-names',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -237,9 +230,8 @@ export const Get_Admin_by_ClassName = async ({ classAdmin, classNames }) => {
         },
       }
     );
-    return response.data;
+    return response;
   } catch (error) {
-    console.error("Error fetching evaluation by module:", error.response || error.message);
     throw error;
   }
 };
